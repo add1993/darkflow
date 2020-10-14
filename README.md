@@ -286,3 +286,32 @@ flow --pbLoad built_graph/yolo.pb --metaLoad built_graph/yolo.meta --imgdir samp
 If you'd like to load a `.pb` and `.meta` file when using `return_predict()` you can set the `"pbLoad"` and `"metaLoad"` options in place of the `"model"` and `"load"` options you would normally set.
 
 That's all.
+
+https://stackoverflow.com/questions/44674517/yolo-darknet-detecting-only-specific-class-like-person-cat-dog-etc?fbclid=IwAR0sAVq86GOqgFyDcgPnA_5kCB82j1bFELpJzvFRB2E_XG0TN8pC3gyRPVA
+
+```bash
+flow_v2 --model cfg/tiny-yolo-voc-1c.cfg --load bin/yolov2-tiny-voc.weights --train --dataset "./VOCdevkit/VOC2007/JPEGImages" --annotation "./VOCdevkit/VOC2007/Annotations" --gpu 0.9
+```
+
+AssertionError: expect 202335260 bytes, found 203934260 Soccer Ball Detection using YOLOv2 (Darkflow)
+FIX :  In darkflow/utils/loader.py
+```python
+class weights_walker(object):
+"""incremental reader of float32 binary files"""
+def __init__(self, path):
+    self.eof = False # end of file
+    self.path = path  # current pos
+    if path is None: 
+        self.eof = True
+        return
+    else: 
+        self.size = os.path.getsize(path)# save the path
+        major, minor, revision, seen = np.memmap(path,
+            shape = (), mode = 'r', offset = 0,
+            dtype = '({})i4,'.format(4))
+        self.transpose = major > 1000 or minor > 1000
+        self.offset = 16 + 203934260 - 202335260
+```
+```bash
+self.offset = 16 + found_value - expected_value
+```
