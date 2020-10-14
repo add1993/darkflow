@@ -5,23 +5,23 @@ import numpy
 import os
 import imp
 
-VERSION = imp.load_source('version', os.path.join('.', 'darkflow', 'version.py'))
+VERSION = imp.load_source('version', os.path.join('.', 'darkflow_v2', 'version.py'))
 VERSION = VERSION.__version__
 
 if os.name =='nt' :
     ext_modules=[
-        Extension("darkflow.cython_utils.nms",
-            sources=["darkflow/cython_utils/nms.pyx"],
+        Extension("darkflow_v2.cython_utils.nms",
+            sources=["darkflow_v2/cython_utils/nms.pyx"],
             #libraries=["m"] # Unix-like specific
             include_dirs=[numpy.get_include()]
         ),        
-        Extension("darkflow.cython_utils.cy_yolo2_findboxes",
-            sources=["darkflow/cython_utils/cy_yolo2_findboxes.pyx"],
+        Extension("darkflow_v2.cython_utils.cy_yolo2_findboxes",
+            sources=["darkflow_v2/cython_utils/cy_yolo2_findboxes.pyx"],
             #libraries=["m"] # Unix-like specific
             include_dirs=[numpy.get_include()]
         ),
-        Extension("darkflow.cython_utils.cy_yolo_findboxes",
-            sources=["darkflow/cython_utils/cy_yolo_findboxes.pyx"],
+        Extension("darkflow_v2.cython_utils.cy_yolo_findboxes",
+            sources=["darkflow_v2/cython_utils/cy_yolo_findboxes.pyx"],
             #libraries=["m"] # Unix-like specific
             include_dirs=[numpy.get_include()]
         )
@@ -29,18 +29,18 @@ if os.name =='nt' :
 
 elif os.name =='posix' :
     ext_modules=[
-        Extension("darkflow.cython_utils.nms",
-            sources=["darkflow/cython_utils/nms.pyx"],
+        Extension("darkflow_v2.cython_utils.nms",
+            sources=["darkflow_v2/cython_utils/nms.pyx"],
             libraries=["m"], # Unix-like specific
             include_dirs=[numpy.get_include()]
         ),        
-        Extension("darkflow.cython_utils.cy_yolo2_findboxes",
-            sources=["darkflow/cython_utils/cy_yolo2_findboxes.pyx"],
+        Extension("darkflow_v2.cython_utils.cy_yolo2_findboxes",
+            sources=["darkflow_v2/cython_utils/cy_yolo2_findboxes.pyx"],
             libraries=["m"], # Unix-like specific
             include_dirs=[numpy.get_include()]
         ),
-        Extension("darkflow.cython_utils.cy_yolo_findboxes",
-            sources=["darkflow/cython_utils/cy_yolo_findboxes.pyx"],
+        Extension("darkflow_v2.cython_utils.cy_yolo_findboxes",
+            sources=["darkflow_v2/cython_utils/cy_yolo_findboxes.pyx"],
             libraries=["m"], # Unix-like specific
             include_dirs=[numpy.get_include()]
         )
@@ -48,27 +48,27 @@ elif os.name =='posix' :
 
 else :
     ext_modules=[
-        Extension("darkflow.cython_utils.nms",
-            sources=["darkflow/cython_utils/nms.pyx"],
+        Extension("darkflow_v2.cython_utils.nms",
+            sources=["darkflow_v2/cython_utils/nms.pyx"],
             libraries=["m"] # Unix-like specific
         ),        
-        Extension("darkflow.cython_utils.cy_yolo2_findboxes",
-            sources=["darkflow/cython_utils/cy_yolo2_findboxes.pyx"],
+        Extension("darkflow_v2.cython_utils.cy_yolo2_findboxes",
+            sources=["darkflow_v2/cython_utils/cy_yolo2_findboxes.pyx"],
             libraries=["m"] # Unix-like specific
         ),
-        Extension("darkflow.cython_utils.cy_yolo_findboxes",
-            sources=["darkflow/cython_utils/cy_yolo_findboxes.pyx"],
+        Extension("darkflow_v2.cython_utils.cy_yolo_findboxes",
+            sources=["darkflow_v2/cython_utils/cy_yolo_findboxes.pyx"],
             libraries=["m"] # Unix-like specific
         )
     ]
 
 setup(
     version=VERSION,
-	name='darkflow',
+	name='darkflow_v2',
     description='Darkflow',
     license='GPLv3',
-    url='https://github.com/thtrieu/darkflow',
+    url='https://github.com/thtrieu/darkflow_v2',
     packages = find_packages(),
-	scripts = ['flow'],
+	scripts = ['flow_v2'],
     ext_modules = cythonize(ext_modules)
 )
